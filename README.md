@@ -50,8 +50,10 @@ The design flow of the lab is listed below:
 To continue from the previous (Lab2) project file, project file is opened and saved it as Lab3. After Lab3 project is created processing system is updated to re-customize IP. GP0 M AXI interface, clock reset FCLK_RESET0_N and PL fabric clock FCLK_CLK0 are enabled. Over all PS part is shown below.
 
 ![](https://github.com/bselimoglu/SoC-ZedBoard-Zynq-7000-Labs/blob/master/zynq7_ps_2.png)
+
 After PS part is updated, from Add IP icon AXI GPIO is selected and its properties are arranged the given lab instructions. First one of the GPIOs is switches and it automatically connected. After switches GPIO is added, buttons GPIO is added but this time its connection done manually according to laboratory instructions. The connections are shown Figure 2. After buttons is addressed, system is synthesized, and Open Synthesized Design is opened to check the I/O Ports. After that bitstream is generated and export the hardware to SDK.
 ![](https://github.com/bselimoglu/SoC-ZedBoard-Zynq-7000-Labs/blob/master/system_2.png)
+
 In SDK, empty project is created but before that standalone_bsp_0 must be selected. After new application project is created, given lab3.c file should be import to project and output of the project can be seen in SDK Terminal output.
 ## The Results
 System is consisting of processing system and hardware components in programmable logic part of SoC. Processin system has DDR3 Memory controller and UART communication peripheral. The programmable logic has two GPIO and one AXI interconnect. GPIO peripherals were connected to processing system through 32b Master GP0 interface. Switches and buttons connections were established. Software was uploaded after downloading the bitstream and executing the program.
@@ -81,7 +83,8 @@ To continue from the previous (Lab3) project file, project file is opened and sa
 •	0x43C00000 is base address, 0 is register offset and 4 is data.
 
 ![](https://github.com/bselimoglu/SoC-ZedBoard-Zynq-7000-Labs/blob/master/block_design_4.png)
-##The Results
+
+## The Results
 System is consisting of processing system and hardware components in programmable logic part of SoC. Processing system has DDR3 Memory controller and UART communication peripheral. The programmable logic has two GPIO, one AXI interconnect and one IP core which is created and named multiplier_ip. The custom IP has four register, first and second registers are multiplied and result was written third one . All register has 32-bit, interface type is lite, and mode is slave.  GPIO peripherals and IP core were connected to processing system through 32b Master GP0 interface. Switches and buttons connections were established. Software was uploaded after downloading the bitstream and executing the program. Multiplication was performed by accessing the memory addresses and write the data these addresses. IP core does the multiplication operation and third register has the result. 
 # LAB5: Custom Interfacing in System on Chip
 ## The Purpose
