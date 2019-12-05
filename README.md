@@ -105,8 +105,92 @@ In the previous lab (LAB4) we create a SoC design that contains PS, multiplier I
 In the weekend work of the lab5, given IP core block design is shown below. weeknd_0 has 8 different 32-bit registers and its unknown ip file has 3(a,b,c) input, 1(result) output and handshake signals. IP uses 8 leds to write the result to them.
 ![](https://github.com/bselimoglu/SoC-ZedBoard-Zynq-7000-Labs/blob/master/system_5.png)
 The given unknown ip VHDL file connected as shown in the Figure 2. slv_reg0 is used for ap_start and ap_rst signals. Sgnal is connected slv_reg1 register to read the ap_done, ap_idle and ap_ready output signals. Slv_reg2, slv_reg3 and slv_reg4 are used for input signals respectively a, b and c of unknown_ip.vhd file. And result is connected to Led_out signal to figure out the what this IP core is really doing.
+
 ![](https://github.com/bselimoglu/SoC-ZedBoard-Zynq-7000-Labs/blob/master/connection_of_the_unknown_ip.png)
+
 After observing the input and output signals, unknown IP core writes the c input signal through result.
+
+# LAB6: Interrupts and Timers in SoC
+## The Purpose
+The purpose of this laboratory is creating Gpio interrupt channels and AXI Timer in hardware and configuring them in software for the programmable SoC platform and generate a timer interrupt and a button interrupt in the software when timer has expired, or button is pressed.
+## The Architecture 
+The design flow of the lab is listed below:
+
+1. Add and configure GPIO peripherals to support an interrupt channel, 
+
+2. Add and configure Timer module with an interrupt signal,
+
+3. Configure the Zynq PS to enable the Interrupt ports,
+
+4. Generate bitstream and export to SDK,
+
+5. Create a software application in SDK
+
+6. Verify the design in hardware
+
+In the lab, before adding the GPIOs and AXI timer, the Zynq Processing System should be added, and necessary specifications must be enabled. After that run automation connection is done and DDR and FIXED_IO are made external. Also, Processor System Reset is consisted and so Gpios can be added now. After adding Gpios, buttons Gpio’s interrupt channel is enabled. Other Gpio has two channels, one of them for switches other one is for leds. Before connect interrupt signal to Znyq processor system, concat is needed. It takes two interrupt singal input and gives one of them to Zynq PS. And so, hardware design is done, we validate design and create hdl wrapper. Bitstream is generated and SDK is launched.
+According to lecture notes, software part of the lab is based on the following programming flow.
+
+•	Initialize peripherals
+
+•	Configure and Initialize GIC via XScuGic_LookupConfig and XScuGic_CfgIntialize functions
+
+•	Enable interrupt channels of periherals
+
+•	Make the connection between the IRQ and the XScuGic_InterruptHandler Handler
+
+•	Make the connection between the Interrupt sourcesn and Gic via XScuGic_Connect
+
+•	Enable the interrupt source in the controller via XScuGic_Enable
+
+•	Create or wait for an interrupt in processing system
+## The Results
+In the lab6, our main aim is that use SDK to define, develop, and integrate the software components of the same embedded SoC design for different applications. Configuring SDK functions according to application specific requirements is very important task in this laboratory.
+
+# LAB7: Designing Memory Subsystem with DMA Controller to Optimize SoC Performance
+## The Purpose
+The purpose of this laboratory is accessing PS memory space from PL for higher performance communication in an SoC. In hardware design of the lab7, we enable a high performance (HP) slave port of the PS for CDMA unit to access memory space is PS from PL, add and connect CDMA controller in PL, and perform Direct memory access (DMA) operation between different memory regions in the system and measure the elapsed time for the data movement operation.
+## The Architecture 
+The design flow of the lab is listed below:
+
+1. Add GPIO peripherals, 
+
+2. Add a bock RAM (BRAM) unit with two ports,
+
+3. Add two BRAM controllers,
+
+4. Add a CDMA controller with interrupt channel,
+
+5. Configure the Zynq PS to enable the interrupt ports,
+
+6. Generate bitstream and export to SDK,
+
+7. Create a software application in SDK and
+
+8. Verify the design in hardware (demonstrate how DMA performs memory transfers).
+
+In the lab, before adding the GPIOs, BRAMs, BRAM Controller, AXI Timer and CDMA, the Zynq Processing System should be added, and necessary specifications must be enabled. After that run automation connection is done and DDR and FIXED_IO are made external. Also, Processor System Reset is consisted and so Gpios can be added now. After adding Gpios, CDMA is added, and its Enable Scatter Gather option is unchecked. Other Gpio has one channels, one of the Gpios for switches other one is for leds. Before connect interrupt signal to Znyq processor system, concat is needed. It takes two interrupt singal input and gives one of them to Zynq PS. After that BRAMs and BRAM Controller are added, we validate design and create hdl wrapper. Bitstream is generated and SDK is launched.
+
+According to lecture notes, software part of the lab is based on the Coherent AXI DMA-based Accelerator Communication. Its write to accelerator is based on following flow.
+
+•	Processor allocates buffer,
+
+•	Processor writes data into buffer,
+
+•	Processor initiates DMA transfer.
+
+It’s read from accelerator is based on following flow.
+
+•	Processor allocates buffer,
+
+•	Processor initiates DMA transfer,
+
+•	Processor waits for DMA to complete and processor reads data from buffer.
+
+## The Results
+In the lab7, our main aim is that obtain higher performance by accessing PS part with master ports of PL part. In many applications need higher performance for example video processing. HP ports are designed for maximum bandwidth access to external memory and on-chip-memory (OCM). The speed order of the ports is the following: HP Ports > external DDR > OCM. HP is provides 64 bit bandwidth.
+
+
 
 
 
